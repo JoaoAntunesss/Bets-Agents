@@ -20,3 +20,16 @@ Rules (in TICKET mode from `limits.md`: 1 ticket per day, stake 1 to 2 EUR, 6 to
 - If nothing passes, the decision is: **no bet today**. That is a good result.
 
 Save `matches/<date>/decision.md` with: approved bets (matches, market, odds, stake, match time, and for each selection: the 3 main reasons, citing what each specialist found (injuries, form, news, weather, referee...), the main risk and the confidence), rejected bets and why, and the total at risk. Finish with the warning: "This is statistical analysis, it does not guarantee profit. The bet is placed by you, manually."
+
+Also save the machine-readable ledger entry `matches/<date>/bets.json` (the dashboard and `/settle` read it). Use exactly this shape, one object per approved multiple (an empty `"bets": []` when there is no bet today):
+
+```json
+{"date": "YYYY-MM-DD",
+ "bets": [{"id": "YYYY-MM-DD-safe", "tier": "safe", "stake": 2.0, "odds": 9.4, "estimated_odds": false,
+           "probability": 0.12, "status": "pending", "placed": false,
+           "legs": [{"match": "Home vs Away", "folder": "home-vs-away", "league": "Premier League",
+                     "kickoff_utc": "2026-10-26T19:00:00Z", "market": "Over 1.5 goals",
+                     "selection": "Over 1.5", "odds": 1.3, "result": "pending"}]}]}
+```
+
+`tier` is `safe`, `balanced` or `ambitious` (or `ticket` / `single` in the other modes). `status` and every leg `result` start as `pending`; `placed` always starts as `false` (the user flips it in the dashboard once they actually place the bet). Numbers must match `decision.md`.

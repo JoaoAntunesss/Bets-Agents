@@ -21,6 +21,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+import ledger
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 MATCHES = ROOT / "matches"
@@ -185,7 +187,7 @@ def find_claude():
     return None
 
 
-def start(target):
+def start(target, command="/today"):
     with LOCK:
         proc = EXEC["proc"]
         if proc is not None and proc.poll() is None:
@@ -197,7 +199,7 @@ def start(target):
         folder = MATCHES / day
         folder.mkdir(parents=True, exist_ok=True)
         target = re.sub(r"[^\w\s\-.,'\u00c0-\u00ff]", "", target or "").strip()[:80]
-        prompt = "/today" + (f" {target}" if target else "")
+        prompt = command + (f" {target}" if target else "")
         cmd = [exe, "-p", prompt, "--model", "sonnet", "--permission-mode", "acceptEdits",
                "--allowedTools", ALLOWED_TOOLS, "--permission-prompts", "none"]
         log = open(folder / "_claude.log", "w", encoding="utf-8")
@@ -278,6 +280,17 @@ class Handler(BaseHTTPRequestHandler):
             if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", day):
                 day = date.today().isoformat()
             self._send(200, "application/json; charset=utf-8", json.dumps(state(day), ensure_ascii=False))
+        elif u.path.startswith("/avatars/"):
+            name = Path(u.path).name
+            f = HERE / "avatars" / name
+            ctype = {".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp"}.get(f.suffix.lower())
+            if ctype and f.is_file():
+                self._send(200, ctype, f.read_bytes())
+            else:
+                self._send(404, "text/plain; charset=utf-8", "Not found")
+        elif u.path == "/api/ledger":
+            bets = ledger.demo_bets() if (q.get("demo") or [""])[0] == "1" else ledger.load_bets()
+            self._send(200, "application/json; charset=utf-8", json.dumps(ledger.summarize(bets), ensure_ascii=False))
         elif u.path == "/api/file":
             rel = (q.get("path") or [""])[0]
             try:
@@ -309,6 +322,10 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == "/api/start":
             res = start(str(body.get("target") or ""))
+        elif path == "/api/settle":
+            res = start(str(body.get("target") or ""), "/settle")
+        elif path == "/api/placed":
+            res = {"ok": ledger.set_placed(str(body.get("id") or ""), bool(body.get("placed")))}
         elif path == "/api/stop":
             res = stop()
         else:

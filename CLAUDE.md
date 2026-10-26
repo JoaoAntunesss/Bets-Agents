@@ -10,7 +10,7 @@ You are the **Coordinator**. When the user asks for "/today" or "analyse today's
 4. **Market specialists** (in batches of at most 16 agents at the same time, after collection; if a launch fails, repeat it): `market-result`, `market-goals`, `market-corners`, `market-cards`. Each one reads the collection and saves its candidates to `market-<name>.md` in the match folder.
 5. **Builder**: reads all the candidates and assembles the ticket (or the bets) in `matches/YYYY-MM-DD/proposals.md`.
 6. **Jury** (in parallel): `jury-devils-advocate`, `jury-statistician`, `jury-risk-manager`, `jury-news`. Each one saves its vote to `matches/YYYY-MM-DD/jury-<name>.md`.
-7. **President**: reads everything and saves `matches/YYYY-MM-DD/decision.md`.
+7. **President**: reads everything and saves `matches/YYYY-MM-DD/decision.md` and the ledger entry `matches/YYYY-MM-DD/bets.json`.
 8. Reply to the user with a short summary: the 3 approved multiples (selections with local time, odds, stake, reason). Always emit several multiples (see `limits.md`, MULTIPLES mode); only say "no bets today" if fewer than 4 matches have yet to start. Do not end the analysis before completing the 5 phases: collection, markets, builder, jury and president.
 
 Keep the user informed with one line per completed phase (e.g. "Collection finished: 12 matches").
@@ -22,3 +22,9 @@ Keep the user informed with one line per completed phase (e.g. "Collection finis
 - All probabilities are estimates. No agent promises profit.
 - The user places the bet manually. No agent bets on its own.
 - The money limits are in `limits.md` and the President can never exceed them.
+
+## Ledger and settlement
+- Every approved bet is recorded in `matches/YYYY-MM-DD/bets.json` (see the president's prompt). Nothing is ever deleted from the ledger, wins and losses alike.
+- `/settle` runs the `settler` agent: it checks final results (`python scripts/results.py <date>`), marks every leg and bet won, lost or void, and writes `settlement.md`. It never marks a leg without evidence.
+- `python scripts/ledger.py` prints profit, ROI and hit rate; the dashboard "Ledger" tab shows the same with a profit curve.
+- Judge the system only by the ledger over a long run (weeks), never by a single day.
