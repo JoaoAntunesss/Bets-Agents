@@ -1,0 +1,11 @@
+# Daily analysis output (generated every run)
+jogos/*
+!jogos/.gitkeep
+
+# Secrets and local files
+.env
+*.key
+__pycache__/
+*.pyc
+.DS_Store
+.claude/settings.local.json
