@@ -191,10 +191,86 @@ h1{background:linear-gradient(90deg,#b6ff3c,#35e0ff);-webkit-background-clip:tex
 .panels .panel.decision h3::before{content:"⚖ "}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .chip{font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:99px;border:1px solid var(--bd2);color:var(--cy);background:rgba(182,255,60,.06)}
+
+/* ===== v3 look: sportsbook / trading terminal (flat, dense, no mascots) ===== */
+:root{--bg:#07090c;--txt:#eef2f5;--dim:#7f8b96;--bd:#1b232b;--bd2:#2a3641;--cy:#c8ff00;--gr:#19e68c;--am:#ffb800;--rd:#ff4560;--bl:#4aa8ff;--vi:#a78bfa;
+  --glass:#0d1217}
+body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.app{max-width:1560px}
+.glass,.card,.panel{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;background:var(--glass);border:1px solid var(--bd);border-radius:10px}
+h1{font-size:20px;letter-spacing:5px;background:none;color:var(--txt)!important;-webkit-text-fill-color:var(--txt)}
+h1::after{content:"AI";margin-left:12px;padding:2px 7px;border-radius:5px;background:var(--cy);color:#000;font-size:12px;letter-spacing:1px;font-weight:900;vertical-align:middle}
+.sub{letter-spacing:2.5px}
+.logo{filter:none}
+.btn{background:var(--cy);color:#000;border-radius:8px;box-shadow:none;letter-spacing:.5px}
+.btn:hover:not(:disabled){box-shadow:0 0 0 3px rgba(200,255,0,.2)}
+.btn.sec{background:transparent;color:var(--rd);border:1px solid var(--rd)}
+.btn.demo{background:transparent;color:var(--txt);border:1px solid var(--bd2)}
+select{background:#0a0e12;color:var(--txt);border:1px solid var(--bd2);border-radius:8px}
+.ticker{border-radius:8px;background:#05070a;border-color:var(--bd)}
+.ticker::before{background:var(--rd)}
+.tk b{color:var(--cy)}
+/* odds board */
+.stats{gap:10px}
+.stat{padding:14px 16px;border-left:3px solid var(--bd2)}
+.stat.c1{border-left-color:var(--cy)}.stat.c2{border-left-color:var(--am)}.stat.c3{border-left-color:var(--gr)}.stat.c4{border-left-color:var(--vi)}
+.stat small::before{display:none}
+.stat b{font-size:34px;font-weight:700;letter-spacing:0}
+.stat.c4 b{font-size:20px;padding-top:12px}
+/* pipeline as steps */
+.pipe{padding:14px 20px;border-radius:10px}
+.node .ring{width:44px;height:44px;border-radius:10px;background:#10171d;border:1px solid var(--bd2)}
+.node .ring::before{display:none}
+.node .ring span{font-size:15px}
+.node.working .ring{border-color:var(--am);box-shadow:0 0 0 3px rgba(255,184,0,.15);animation:none}
+.node.done .ring{border-color:var(--gr);background:rgba(25,230,140,.1);box-shadow:none}
+.node b{letter-spacing:2px;font-size:10.5px}
+.link{height:2px;border-radius:0}
+.link.ok{background:var(--gr)}
+/* section headings */
+.phase h2{letter-spacing:3px;color:var(--dim);font-size:11px}
+.phase h2::before{width:6px;height:6px;border-radius:50%;transform:none;background:var(--cy);box-shadow:none}
+.phase h2::after{background:var(--bd)}
+/* agent cards: dense, flat */
+.grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.card{text-align:left;padding:12px 12px 10px;transition:border-color .2s,transform .15s}
+.card::before{display:none}
+.card:hover{transform:none;border-color:var(--cy)}
+.card.waiting{opacity:.55}
+.card.working{border-color:var(--am);box-shadow:inset 3px 0 0 var(--am)}
+.card.done{border-color:var(--bd2);box-shadow:inset 3px 0 0 var(--gr)}
+.card.done::after{content:"";top:14px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--gr);box-shadow:0 0 8px var(--gr);font-size:0}
+.scan{display:none}
+.top2{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.ic{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-size:18px;background:#141c23;border:1px solid var(--bd2)}
+.pill{margin:0;font-size:9px;padding:2px 7px}
+.card.done .pill{border-color:transparent;background:rgba(25,230,140,.12)}
+.card.working .pill{background:rgba(255,184,0,.12)}
+.card.done::after{right:12px;top:auto;bottom:12px;display:none}
+.name{font-size:14px;font-weight:700}
+.desc{min-height:30px;margin:2px 0 8px}
+.v{border:1px solid var(--bd2)}
+.seg .s{border-radius:1px}
+/* sidebar: betslip first */
+aside{position:sticky;top:12px;align-self:start}
+.slip{border:1px solid var(--cy);background:#0d1217;border-style:solid}
+.slip::before,.slip::after{display:none}
+.slip h3{color:var(--bg);background:var(--cy);margin:-14px -16px 12px;padding:9px 16px;border-radius:9px 9px 0 0;letter-spacing:2px}
+.slip h3::before{content:"BET SLIP  ";font-weight:900}
+.slip h3 span{font-size:0}.slip h3 span::after{content:"PROPOSED";font-size:11px}
+.slip table td:last-child,.slip table th:last-child{color:var(--cy);font-weight:800;font-size:15px}
+.slip table{font-size:13px}
+th,td{border:0;border-bottom:1px solid var(--bd)}
+th{background:none;color:var(--dim);font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.panel.decision{border-color:var(--gr);box-shadow:inset 3px 0 0 var(--gr)}
+.panel h3{color:var(--dim)}
+.panel.decision h3{color:var(--gr)}
+.ev{background:none;border-left:2px solid var(--bd2)}
+@media(min-width:1150px){.cols{grid-template-columns:1fr 400px}}
 </style>
 </head>
 <body>
-<canvas id="fx"></canvas><div class="glow"></div><div class="floor"></div>
+
 <div class="app">
   <header class="top">
     <div class="brand">
@@ -227,35 +303,19 @@ h1{background:linear-gradient(90deg,#b6ff3c,#35e0ff);-webkit-background-clip:tex
   <div class="cols">
     <main id="phases"></main>
     <aside>
+      <div class="panel glass slip"><h3><span>BET SLIP · PROPOSED</span></h3><div class="md" id="proposals"></div></div>
+      <div class="panel glass" id="pdec"><h3><span>PRESIDENT'S VERDICT</span></h3><div class="md" id="decision"></div></div>
       <div class="panel glass"><h3><span>LIVE ACTIVITY</span><span id="nev"></span></h3><div class="feed" id="feed"></div></div>
       <div class="panel glass" id="plog" style="display:none"><h3><span>CLAUDE LOG</span></h3><pre id="log"></pre></div>
     </aside>
   </div>
 
-  <div class="panels">
-    <div class="panel glass slip"><h3><span>BET SLIP · PROPOSED</span></h3><div class="md" id="proposals"></div></div>
-    <div class="panel glass" id="pdec"><h3><span>PRESIDENT'S VERDICT</span></h3><div class="md" id="decision"></div></div>
-  </div>
   <p class="notice">Statistical analysis, it does not guarantee profit. You place the bet yourself, manually. Gamble responsibly.</p>
 </div>
 
 <div id="modal"><div class="box"><div class="mhead"><b id="mtitle"></b><button onclick="closeModal()">Close</button></div><div id="mlist"></div><div class="md" id="mtext"></div></div></div>
 
 <script>
-/* ---------- animated background ---------- */
-(function(){
-  const c=document.getElementById("fx"),x=c.getContext("2d");let W,H,P=[];
-  function size(){W=c.width=innerWidth;H=c.height=innerHeight;const n=Math.min(90,Math.floor(W*H/20000));
-    P=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}))}
-  addEventListener("resize",size);size();
-  function f(){x.clearRect(0,0,W,H);
-    for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
-    for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const dx=P[i].x-P[j].x,dy=P[i].y-P[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<150){x.strokeStyle="rgba(77,163,255,"+(.2*(1-d/150))+")";x.lineWidth=1;x.beginPath();x.moveTo(P[i].x,P[i].y);x.lineTo(P[j].x,P[j].y);x.stroke()}}
-    for(const p of P){x.fillStyle="rgba(130,210,255,.75)";x.beginPath();x.arc(p.x,p.y,1.6,0,6.3);x.fill()}
-    requestAnimationFrame(f)}
-  if(!matchMedia("(prefers-reduced-motion: reduce)").matches)f();
-})();
 
 /* ---------- metadata ---------- */
 const META=[
@@ -271,6 +331,7 @@ const STYLE={
  "market-result":["#5dd6ff","shield"],"market-goals":["#35e08c","circle"],"market-corners":["#ffe14a","hex"],"market-cards":["#ff5d73","quad"],
  "proposals":["#b57bff","penta"],"jury-devils-advocate":["#ff5d73","hex"],"jury-statistician":["#4da3ff","diamond"],
  "jury-risk-manager":["#ffa94d","shield"],"jury-news":["#ff4fa3","circle"],"decision":["#2ee59d","penta"]};
+const ICON={"team-analyst":"⚽","historian":"📜","referee":"🟨","meteorologist":"⛅","stadium":"🏟","medic":"🩺","reporter":"📰","player-form":"📈","market-result":"🎯","market-goals":"🥅","market-corners":"🚩","market-cards":"🟥","proposals":"🧮","jury-devils-advocate":"😈","jury-statistician":"📐","jury-risk-manager":"🛡","jury-news":"🗞","decision":"⚖"};
 const SHAPES={circle:"border-radius:50%",shield:"clip-path:polygon(50% 0,100% 15%,100% 60%,50% 100%,0 60%,0 15%)",
  hex:"clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)",diamond:"clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)",
  penta:"clip-path:polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%)",quad:"border-radius:18px"};
@@ -309,8 +370,8 @@ const cards={},nodes={};
     f.ag.forEach(a=>{
       const [color,shape]=STYLE[a[0]];
       const el=document.createElement("div");el.className="card waiting";el.dataset.id=a[0];el.style.setProperty("--ac",color);
-      el.innerHTML='<div class="scan"></div><div class="av" style="--ac:'+color+'"><div class="orb"></div><div class="b" style="'+SHAPES[shape]+'"></div><div class="e l"></div><div class="e r"></div></div>'+
-        '<div class="pill">WAITING</div><div class="name">'+esc(a[1])+'</div><div class="desc">'+esc(a[2])+'</div>'+
+      el.innerHTML='<div class="scan"></div><div class="top2"><div class="ic">'+(ICON[a[0]]||"•")+'</div><div class="pill">WAITING</div></div>'+
+        '<div class="name">'+esc(a[1])+'</div><div class="desc">'+esc(a[2])+'</div>'+
         (f.id==="jury"?'<div class="votes"></div>':'')+'<div class="pr"><div class="seg"></div><span class="cnt">0/0</span></div>';
       g.appendChild(el);cards[a[0]]=el;
     });
