@@ -1,6 +1,6 @@
 # Daily analysis output (generated every run)
-jogos/*
-!jogos/.gitkeep
+matches/*
+!matches/.gitkeep
 
 # Secrets and local files
 .env

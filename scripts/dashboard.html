@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="pt">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sala de Análise</title>
+<title>Analysis Room</title>
 <style>
 :root{
   --bg:#040813; --txt:#e6efff; --dim:#7f94c4; --bd:rgba(90,150,255,.22); --bd2:rgba(90,150,255,.42);
@@ -23,10 +23,10 @@ body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,"
   background-image:linear-gradient(rgba(77,163,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(77,163,255,.35) 1px,transparent 1px);
   background-size:56px 56px;transform:perspective(520px) rotateX(62deg);transform-origin:center bottom;
   -webkit-mask-image:linear-gradient(to top,#000,transparent 85%);mask-image:linear-gradient(to top,#000,transparent 85%);
-  animation:chao 6s linear infinite}
-@keyframes chao{to{background-position:0 56px,0 0}}
+  animation:floorMove 6s linear infinite}
+@keyframes floorMove{to{background-position:0 56px,0 0}}
 .app{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:18px 20px 40px}
-/* topo */
+/* top bar */
 .top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
 .brand{display:flex;gap:14px;align-items:center}
 .logo{width:48px;height:48px;filter:drop-shadow(0 0 12px rgba(53,224,255,.7))}
@@ -37,7 +37,7 @@ h1{margin:0;font-size:24px;letter-spacing:6px;font-weight:800;background:linear-
 .sys i{width:8px;height:8px;border-radius:50%;background:var(--gr);box-shadow:0 0 10px var(--gr);animation:blink 1.6s infinite}
 @keyframes blink{50%{opacity:.25}}
 select{background:rgba(10,18,42,.9);color:var(--txt);border:1px solid var(--bd);border-radius:8px;padding:7px 9px;font:inherit}
-/* vidro */
+/* glass */
 .glass{background:var(--glass);border:1px solid var(--bd);border-radius:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05)}
 .ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px;padding:12px 14px}
 .ctrl select{flex:1;min-width:210px;max-width:460px}
@@ -50,7 +50,7 @@ select{background:rgba(10,18,42,.9);color:var(--txt);border:1px solid var(--bd);
 #msg{font-family:var(--mono);font-size:12px;color:var(--dim)} #msg.erro{color:var(--rd)}
 .demobar{display:none;margin-top:10px;padding:9px 14px;border:1px dashed var(--vi);border-radius:12px;color:#d6c3ff;font-family:var(--mono);font-size:12px;letter-spacing:1px;background:rgba(155,107,255,.08)}
 .demobar.on{display:block}
-/* estatísticas */
+/* stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:14px}
 .stat{padding:14px 16px}
 .stat small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:2.5px;color:var(--dim)}
@@ -65,22 +65,22 @@ select{background:rgba(10,18,42,.9);color:var(--txt);border:1px solid var(--bd);
 .node .ring span{position:relative;font-family:var(--mono);font-weight:800;font-size:16px;color:var(--col)}
 .node b{font-size:11px;letter-spacing:2.5px;font-family:var(--mono);color:var(--txt)}
 .node small{font-family:var(--mono);font-size:11px;color:var(--dim)}
-.node.trabalhar{--col:var(--am)} .node.trabalhar .ring{box-shadow:0 0 22px rgba(255,210,63,.45);animation:respira 1.8s ease-in-out infinite}
-.node.concluido{--col:var(--gr)} .node.concluido .ring{box-shadow:0 0 18px rgba(46,229,157,.35)}
-@keyframes respira{50%{transform:scale(1.07)}}
+.node.working{--col:var(--am)} .node.working .ring{box-shadow:0 0 22px rgba(255,210,63,.45);animation:breathe 1.8s ease-in-out infinite}
+.node.done{--col:var(--gr)} .node.done .ring{box-shadow:0 0 18px rgba(46,229,157,.35)}
+@keyframes breathe{50%{transform:scale(1.07)}}
 .link{flex:1;min-width:30px;height:3px;border-radius:3px;background:rgba(255,255,255,.07);position:relative;overflow:hidden}
-.link.on::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--cy) 0 10px,transparent 10px 24px);animation:fluxo 0.9s linear infinite}
+.link.on::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--cy) 0 10px,transparent 10px 24px);animation:flow 0.9s linear infinite}
 .link.ok{background:linear-gradient(90deg,var(--gr),var(--cy))}
-@keyframes fluxo{to{background-position:24px 0}}
-/* colunas */
+@keyframes flow{to{background-position:24px 0}}
+/* columns */
 .cols{display:grid;grid-template-columns:1fr;gap:16px;margin-top:6px}
 @media(min-width:1150px){.cols{grid-template-columns:1fr 360px}}
-.fase{margin-top:18px}
-.fase h2{font-family:var(--mono);font-size:12px;letter-spacing:4px;color:var(--cy);margin:0 0 11px;font-weight:600;display:flex;align-items:center;gap:12px}
-.fase h2::before{content:"";width:8px;height:8px;background:var(--cy);box-shadow:0 0 12px var(--cy);transform:rotate(45deg)}
-.fase h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--bd2),transparent)}
+.phase{margin-top:18px}
+.phase h2{font-family:var(--mono);font-size:12px;letter-spacing:4px;color:var(--cy);margin:0 0 11px;font-weight:600;display:flex;align-items:center;gap:12px}
+.phase h2::before{content:"";width:8px;height:8px;background:var(--cy);box-shadow:0 0 12px var(--cy);transform:rotate(45deg)}
+.phase h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--bd2),transparent)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px}
-/* cartões */
+/* cards */
 .card{--c:var(--bl);position:relative;background:var(--glass);border:1px solid var(--bd);border-radius:14px;padding:16px 10px 12px;text-align:center;cursor:pointer;overflow:hidden;
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .18s,border-color .4s,box-shadow .4s,opacity .4s}
 .card:hover{transform:translateY(-3px);border-color:var(--bd2)}
@@ -91,45 +91,45 @@ select{background:rgba(10,18,42,.9);color:var(--txt);border:1px solid var(--bd);
    linear-gradient(var(--k,var(--bd2)),var(--k,var(--bd2))) 0 100%/10px 2px no-repeat,linear-gradient(var(--k,var(--bd2)),var(--k,var(--bd2))) 0 100%/2px 10px no-repeat,
    linear-gradient(var(--k,var(--bd2)),var(--k,var(--bd2))) 100% 100%/10px 2px no-repeat,linear-gradient(var(--k,var(--bd2)),var(--k,var(--bd2))) 100% 100%/2px 10px no-repeat}
 .scan{position:absolute;left:0;right:0;top:-50px;height:50px;background:linear-gradient(180deg,transparent,rgba(255,210,63,.22),transparent);opacity:0;pointer-events:none}
-.card.espera{opacity:.5}
-.card.trabalhar{--k:var(--am);border-color:rgba(255,210,63,.7);box-shadow:0 0 0 1px rgba(255,210,63,.15),0 0 28px rgba(255,210,63,.22)}
-.card.trabalhar .scan{opacity:1;animation:scan 2.2s linear infinite}
+.card.waiting{opacity:.5}
+.card.working{--k:var(--am);border-color:rgba(255,210,63,.7);box-shadow:0 0 0 1px rgba(255,210,63,.15),0 0 28px rgba(255,210,63,.22)}
+.card.working .scan{opacity:1;animation:scan 2.2s linear infinite}
 @keyframes scan{to{transform:translateY(240px)}}
-.card.concluido{--k:var(--gr);border-color:rgba(46,229,157,.5);box-shadow:0 0 22px rgba(46,229,157,.14)}
-.card.concluido::after{content:"✓";position:absolute;top:8px;right:11px;font-weight:900;color:var(--gr);text-shadow:0 0 10px var(--gr);font-size:15px}
+.card.done{--k:var(--gr);border-color:rgba(46,229,157,.5);box-shadow:0 0 22px rgba(46,229,157,.14)}
+.card.done::after{content:"✓";position:absolute;top:8px;right:11px;font-weight:900;color:var(--gr);text-shadow:0 0 10px var(--gr);font-size:15px}
 .av{width:64px;height:64px;margin:2px auto 12px;position:relative;filter:drop-shadow(0 0 10px var(--ac))}
 .av .b{position:absolute;inset:0;background:var(--ac)}
 .av .b::after{content:"";position:absolute;inset:7%;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.4),rgba(255,255,255,0) 55%)}
 .av .e{position:absolute;top:37%;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 7px #fff}
 .av .e.l{left:29%}.av .e.r{right:29%}
 .av .orb{position:absolute;inset:-9px;border-radius:50%;border:1.5px dashed transparent;pointer-events:none}
-.trabalhar .av .orb{border-color:var(--am);animation:gira 4s linear infinite}
-.trabalhar .av .orb::before{content:"";position:absolute;top:-4px;left:50%;width:7px;height:7px;margin-left:-3px;border-radius:50%;background:var(--am);box-shadow:0 0 10px var(--am)}
-.concluido .av .orb{border-color:rgba(46,229,157,.5);border-style:solid}
-@keyframes gira{to{transform:rotate(360deg)}}
-.trabalhar .av .e{animation:pisca 2.6s infinite}
-.trabalhar .av{animation:flutua 2s ease-in-out infinite}
-@keyframes pisca{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
-@keyframes flutua{50%{transform:translateY(-4px)}}
+.working .av .orb{border-color:var(--am);animation:spin 4s linear infinite}
+.working .av .orb::before{content:"";position:absolute;top:-4px;left:50%;width:7px;height:7px;margin-left:-3px;border-radius:50%;background:var(--am);box-shadow:0 0 10px var(--am)}
+.done .av .orb{border-color:rgba(46,229,157,.5);border-style:solid}
+@keyframes spin{to{transform:rotate(360deg)}}
+.working .av .e{animation:wink 2.6s infinite}
+.working .av{animation:bob 2s ease-in-out infinite}
+@keyframes wink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes bob{50%{transform:translateY(-4px)}}
 .pill{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:800;letter-spacing:1.5px;padding:3px 9px;border-radius:99px;border:1px solid;margin-bottom:7px}
-.espera .pill{color:var(--dim);border-color:var(--bd)}
-.trabalhar .pill{color:var(--am);border-color:var(--am)}
-.trabalhar .pill::after{content:"";animation:pontos 1.4s steps(1) infinite}
-@keyframes pontos{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
-.concluido .pill{color:var(--gr);border-color:var(--gr)}
-.nome{font-weight:800;font-size:15px;letter-spacing:.3px}
+.waiting .pill{color:var(--dim);border-color:var(--bd)}
+.working .pill{color:var(--am);border-color:var(--am)}
+.working .pill::after{content:"";animation:dots 1.4s steps(1) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.done .pill{color:var(--gr);border-color:var(--gr)}
+.name{font-weight:800;font-size:15px;letter-spacing:.3px}
 .desc{font-size:11.5px;color:var(--dim);margin:3px 0 9px;min-height:28px;line-height:1.25}
-.votos{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:7px;min-height:18px}
+.votes{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:7px;min-height:18px}
 .v{font-family:var(--mono);font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(0,0,0,.35)}
-.v.APROVAR{color:var(--gr)}.v.REJEITAR,.v.VETO{color:var(--rd)}.v.ESPERAR,.v.REDUZIRSTAKE{color:var(--am)}
+.v.APPROVE{color:var(--gr)}.v.REJECT,.v.VETO{color:var(--rd)}.v.WAIT,.v.REDUCESTAKE{color:var(--am)}
 .pr{display:flex;align-items:center;gap:7px}
 .seg{flex:1;display:flex;gap:2px;height:6px}
 .seg .s{flex:1;border-radius:2px;background:rgba(255,255,255,.09)}
 .seg .s.on{background:var(--gr);box-shadow:0 0 6px rgba(46,229,157,.7)}
-.trabalhar .seg .s.on{background:var(--am);box-shadow:0 0 6px rgba(255,210,63,.7)}
+.working .seg .s.on{background:var(--am);box-shadow:0 0 6px rgba(255,210,63,.7)}
 .seg .s.run{background:var(--am);animation:blink 1s infinite}
 .cnt{font-family:var(--mono);font-size:11px;color:var(--dim);min-width:28px;text-align:right}
-/* lateral */
+/* sidebar */
 aside{margin-top:18px;display:flex;flex-direction:column;gap:14px}
 .panel{padding:14px 16px}
 .panel h3{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--cy);font-weight:600;display:flex;justify-content:space-between}
@@ -137,27 +137,60 @@ aside{margin-top:18px;display:flex;flex-direction:column;gap:14px}
 .ev{display:flex;gap:9px;line-height:1.35;padding:6px 8px;border-left:2px solid var(--bd2);background:rgba(0,0,0,.18);border-radius:0 8px 8px 0}
 .ev time{color:var(--dim);flex:none}
 .ev b{color:var(--c,var(--cy))}.ev em{color:#bcd1ff;font-style:normal}
-.ev.new{animation:entra .7s ease-out}
-@keyframes entra{from{opacity:0;transform:translateX(18px);background:rgba(53,224,255,.3)}to{opacity:1}}
-.ev.sis{border-left-color:var(--vi)}
-.vazio{color:var(--dim);font-size:13px}
+.ev.new{animation:enter .7s ease-out}
+@keyframes enter{from{opacity:0;transform:translateX(18px);background:rgba(53,224,255,.3)}to{opacity:1}}
+.ev.system{border-left-color:var(--vi)}
+.empty{color:var(--dim);font-size:13px}
 #log{white-space:pre-wrap;font-size:11.5px;color:#9fb4e3;margin:0;font-family:var(--mono);max-height:220px;overflow:auto}
-.paineis{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:20px}
-.paineis .panel{max-height:540px;overflow:auto}
-.paineis .panel.decisao{border-color:var(--gr);box-shadow:0 0 36px rgba(46,229,157,.22)}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:20px}
+.panels .panel{max-height:540px;overflow:auto}
+.panels .panel.decision{border-color:var(--gr);box-shadow:0 0 36px rgba(46,229,157,.22)}
 .md h3,.md h4,.md h5{margin:12px 0 6px}.md p{margin:6px 0;line-height:1.45;font-size:14px}.md ul{margin:6px 0;padding-left:20px;font-size:14px}
 .md code{background:rgba(0,0,0,.4);padding:1px 5px;border-radius:5px}
 .tw{overflow:auto}table{border-collapse:collapse;font-size:13px;width:100%}
 th,td{border:1px solid var(--bd);padding:5px 8px;text-align:left}th{background:rgba(0,0,0,.35)}
-.aviso{margin:22px 0 0;font-family:var(--mono);font-size:11px;color:var(--dim);text-align:center;letter-spacing:.5px}
+.notice{margin:22px 0 0;font-family:var(--mono);font-size:11px;color:var(--dim);text-align:center;letter-spacing:.5px}
 #modal{position:fixed;inset:0;background:rgba(2,5,14,.78);display:none;align-items:center;justify-content:center;padding:16px;z-index:9;backdrop-filter:blur(4px)}
 #modal.on{display:flex}
-#modal .caixa{background:#0a1430;border:1px solid var(--bd2);border-radius:14px;max-width:780px;width:100%;max-height:86vh;overflow:auto;padding:16px 18px;box-shadow:0 0 60px rgba(77,163,255,.25)}
-#modal .topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#modal .box{background:#0a1430;border:1px solid var(--bd2);border-radius:14px;max-width:780px;width:100%;max-height:86vh;overflow:auto;padding:16px 18px;box-shadow:0 0 60px rgba(77,163,255,.25)}
+#modal .mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 #modal button{background:rgba(255,255,255,.06);color:var(--txt);border:1px solid var(--bd);border-radius:8px;padding:5px 10px;cursor:pointer;margin:2px}
 #modal button.sel{border-color:var(--cy)}
 @media(max-width:560px){h1{font-size:19px;letter-spacing:4px}.pipe{padding:14px}.node{min-width:76px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* ===== v2 look: betting terminal ===== */
+:root{--bg:#05080a;--txt:#e9f3ee;--dim:#7d9488;--bd:rgba(160,255,120,.16);--bd2:rgba(160,255,120,.38);
+  --cy:#b6ff3c;--bl:#35e0ff;--vi:#a78bfa;--gr:#34f5a0;--am:#ffc53d;--rd:#ff4d6a;
+  --glass:linear-gradient(180deg,rgba(18,30,24,.78),rgba(8,14,12,.78))}
+.glow{background:radial-gradient(900px 500px at 10% -5%,rgba(182,255,60,.14),transparent 60%),radial-gradient(800px 500px at 100% 0%,rgba(53,224,255,.12),transparent 60%),radial-gradient(700px 400px at 50% 115%,rgba(52,245,160,.12),transparent 60%)}
+.floor{background-image:none;opacity:.55;animation:none;transform:none;left:0;right:0;bottom:0;height:100vh;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 780' fill='none' stroke='%23b6ff3c' stroke-opacity='.10' stroke-width='2'><rect x='40' y='40' width='1120' height='700'/><line x1='600' y1='40' x2='600' y2='740'/><circle cx='600' cy='390' r='95'/><rect x='40' y='215' width='170' height='350'/><rect x='990' y='215' width='170' height='350'/><rect x='40' y='305' width='65' height='170'/><rect x='1095' y='305' width='65' height='170'/></svg>") center/cover no-repeat;
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+h1{background:linear-gradient(90deg,#b6ff3c,#35e0ff);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:none!important}
+.logo{filter:drop-shadow(0 0 12px rgba(182,255,60,.6))}
+.btn{background:linear-gradient(135deg,#b6ff3c,#34f5a0);color:#06140a}
+.btn:hover:not(:disabled){box-shadow:0 0 30px rgba(182,255,60,.55)}
+.glass{border-radius:12px}
+.card{border-radius:10px}
+.stat b{font-family:var(--mono);letter-spacing:1px}
+.stat small::before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;background:var(--cy);border-radius:50%;box-shadow:0 0 8px var(--cy)}
+/* live ticker */
+.ticker{margin-top:14px;overflow:hidden;border:1px solid var(--bd);border-radius:10px;background:rgba(0,0,0,.45);font-family:var(--mono);font-size:12px;white-space:nowrap;position:relative}
+.ticker::before{content:"LIVE";position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;align-items:center;padding:0 12px;background:var(--rd);color:#fff;font-weight:800;letter-spacing:2px;font-size:11px}
+.tk{display:inline-block;padding:9px 0 9px 80px;animation:tk 40s linear infinite}
+.tk span{margin-right:42px;color:var(--dim)}.tk b{color:var(--cy);margin-right:8px}.tk em{font-style:normal;color:var(--txt)}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* bet slip */
+.slip{position:relative;border-style:dashed;border-color:var(--bd2);background:linear-gradient(180deg,rgba(24,38,28,.85),rgba(10,16,12,.85))}
+.slip h3::before{content:"🎫 ";}
+.slip::before,.slip::after{content:"";position:absolute;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--bg);border:1px dashed var(--bd2)}
+.slip::before{left:-9px}.slip::after{right:-9px}
+.slip table td:last-child,.slip table th:last-child{font-family:var(--mono);color:var(--cy);text-align:right}
+.panels .panel.decision{border-color:var(--gr);box-shadow:0 0 36px rgba(52,245,160,.22)}
+.panels .panel.decision h3::before{content:"⚖ "}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:99px;border:1px solid var(--bd2);color:var(--cy);background:rgba(182,255,60,.06)}
 </style>
 </head>
 <body>
@@ -166,48 +199,50 @@ th,td{border:1px solid var(--bd);padding:5px 8px;text-align:left}th{background:r
   <header class="top">
     <div class="brand">
       <svg class="logo" viewBox="0 0 48 48" fill="none"><path d="M24 3l18 10.5v21L24 45 6 34.5v-21L24 3z" stroke="#35e0ff" stroke-width="2"/><path d="M24 12l10 6v12l-10 6-10-6V18l10-6z" fill="rgba(53,224,255,.18)" stroke="#9b6bff" stroke-width="1.5"/><circle cx="24" cy="24" r="3.5" fill="#fff"/></svg>
-      <div><h1>SALA DE ANÁLISE</h1><span class="sub">AGENTES DE APOSTAS · TEMPO REAL</span></div>
+      <div><h1>ANALYSIS ROOM</h1><span class="sub">BETTING AGENTS · REAL TIME</span></div>
     </div>
-    <div class="top-r"><span class="sys"><i></i>SISTEMA ONLINE</span><select id="dia"></select><span id="relogio"></span></div>
+    <div class="top-r"><span class="sys"><i></i>SYSTEM ONLINE</span><select id="day"></select><span id="clock"></span></div>
   </header>
 
   <section class="ctrl glass">
-    <select id="alvo"></select>
-    <button class="btn" id="ini">▶ INICIAR ANÁLISE</button>
-    <button class="btn sec" id="par">■ PARAR</button>
-    <button class="btn demo" id="demo">◈ VER DEMONSTRAÇÃO</button>
+    <select id="target"></select>
+    <button class="btn" id="startBtn">▶ START ANALYSIS</button>
+    <button class="btn sec" id="stopBtn">■ STOP</button>
+    <button class="btn demo" id="demo">◈ VIEW DEMO</button>
     <span id="msg"></span>
   </section>
-  <div class="demobar" id="demobar">◈ MODO DEMONSTRAÇÃO · dados fictícios, sem custos e sem apostas reais</div>
+  <div class="demobar" id="demobar">◈ DEMO MODE · fictional data, no costs and no real bets</div>
+
+  <div class="ticker"><div class="tk" id="tk"></div></div>
 
   <section class="stats">
-    <div class="stat glass c1"><small>JOGOS</small><b id="s1">—</b></div>
-    <div class="stat glass c2"><small>AGENTES ATIVOS</small><b id="s2">0</b></div>
-    <div class="stat glass c3"><small>CONCLUÍDOS</small><b id="s3">0/18</b></div>
-    <div class="stat glass c4"><small>ESTADO · TEMPO</small><b id="s4">EM ESPERA</b></div>
+    <div class="stat glass c1"><small>MATCHES</small><b id="s1">—</b></div>
+    <div class="stat glass c2"><small>ACTIVE AGENTS</small><b id="s2">0</b></div>
+    <div class="stat glass c3"><small>COMPLETED</small><b id="s3">0/18</b></div>
+    <div class="stat glass c4"><small>STATUS · TIME</small><b id="s4">WAITING</b></div>
   </section>
 
   <section class="pipe glass" id="pipe"></section>
 
   <div class="cols">
-    <main id="fases"></main>
+    <main id="phases"></main>
     <aside>
-      <div class="panel glass"><h3><span>ATIVIDADE EM DIRETO</span><span id="nev"></span></h3><div class="feed" id="feed"></div></div>
-      <div class="panel glass" id="plog" style="display:none"><h3><span>REGISTO DO CLAUDE</span></h3><pre id="log"></pre></div>
+      <div class="panel glass"><h3><span>LIVE ACTIVITY</span><span id="nev"></span></h3><div class="feed" id="feed"></div></div>
+      <div class="panel glass" id="plog" style="display:none"><h3><span>CLAUDE LOG</span></h3><pre id="log"></pre></div>
     </aside>
   </div>
 
-  <div class="paineis">
-    <div class="panel glass"><h3><span>BILHETE PROPOSTO</span></h3><div class="md" id="propostas"></div></div>
-    <div class="panel glass" id="pdec"><h3><span>DECISÃO DO PRESIDENTE</span></h3><div class="md" id="decisao"></div></div>
+  <div class="panels">
+    <div class="panel glass slip"><h3><span>BET SLIP · PROPOSED</span></h3><div class="md" id="proposals"></div></div>
+    <div class="panel glass" id="pdec"><h3><span>PRESIDENT'S VERDICT</span></h3><div class="md" id="decision"></div></div>
   </div>
-  <p class="aviso">Análise estatística, não garante lucro. A aposta é colocada por ti, manualmente. Jogo responsável: SICAD, linha 1414.</p>
+  <p class="notice">Statistical analysis, it does not guarantee profit. You place the bet yourself, manually. Gamble responsibly.</p>
 </div>
 
-<div id="modal"><div class="caixa"><div class="topo"><b id="mtitulo"></b><button onclick="fechar()">Fechar</button></div><div id="mlista"></div><div class="md" id="mtexto"></div></div></div>
+<div id="modal"><div class="box"><div class="mhead"><b id="mtitle"></b><button onclick="closeModal()">Close</button></div><div id="mlist"></div><div class="md" id="mtext"></div></div></div>
 
 <script>
-/* ---------- fundo animado ---------- */
+/* ---------- animated background ---------- */
 (function(){
   const c=document.getElementById("fx"),x=c.getContext("2d");let W,H,P=[];
   function size(){W=c.width=innerWidth;H=c.height=innerHeight;const n=Math.min(90,Math.floor(W*H/20000));
@@ -222,28 +257,28 @@ th,td{border:1px solid var(--bd);padding:5px 8px;text-align:left}th{background:r
   if(!matchMedia("(prefers-reduced-motion: reduce)").matches)f();
 })();
 
-/* ---------- metadados ---------- */
+/* ---------- metadata ---------- */
 const META=[
- {id:"recolha",nome:"RECOLHA",modo:"jogo",ag:[["analista-equipas","Equipas","Forma e estilo de jogo"],["historiador","Historiador","Confrontos diretos"],["arbitro","Árbitro","Cartões, faltas, penáltis"],["meteorologo","Meteorologista","Tempo, vento e relvado"],["estadio","Estádio","Fator casa e viagem"],["medico","Médico","Lesões, suspensões, dúvidas"],["jornalista","Repórter","Notícias, pressão e balneário"],["forma-jogadores","Forma","Momento dos jogadores"]]},
- {id:"mercados",nome:"ESPECIALISTAS",modo:"jogo",ag:[["mercado-resultado","Resultado","1X2, dupla hipótese, handicap"],["mercado-golos","Golos","Totais e ambas marcam"],["mercado-cantos","Cantos","Cantos do jogo e por equipa"],["mercado-cartoes","Cartões","Cartões do jogo"]]},
- {id:"construtor",nome:"CONSTRUTOR",modo:"global",ag:[["propostas","Construtor","Monta as 3 múltiplas do dia"]]},
- {id:"juri",nome:"JÚRI",modo:"global",ag:[["juri-advogado-diabo","Advogado do diabo","Procura o que pode falhar"],["juri-estatistico","Estatístico","Confirma o valor real"],["juri-gestor-risco","Gestor de risco","Limites e veto"],["juri-noticias","Notícias","Última hora e onzes"]]},
- {id:"presidente",nome:"PRESIDENTE",modo:"global",ag:[["decisao","Presidente","Decisão final"]]}
+ {id:"collection",name:"COLLECTION",mode:"match",ag:[["team-analyst","Teams","Form and playing style"],["historian","Historian","Head-to-head"],["referee","Referee","Cards, fouls, penalties"],["meteorologist","Meteorologist","Weather, wind and pitch"],["stadium","Stadium","Home advantage and travel"],["medic","Medic","Injuries, suspensions, doubts"],["reporter","Reporter","News, pressure and dressing room"],["player-form","Form","Key players' current form"]]},
+ {id:"markets",name:"SPECIALISTS",mode:"match",ag:[["market-result","Result","1X2, double chance, handicap"],["market-goals","Goals","Totals and both teams to score"],["market-corners","Corners","Match and per-team corners"],["market-cards","Cards","Match cards"]]},
+ {id:"builder",name:"BUILDER",mode:"global",ag:[["proposals","Builder","Builds the day's 3 multiples"]]},
+ {id:"jury",name:"JURY",mode:"global",ag:[["jury-devils-advocate","Devil's advocate","Looks for what could fail"],["jury-statistician","Statistician","Confirms the real value"],["jury-risk-manager","Risk manager","Limits and veto"],["jury-news","News","Last-minute news and line-ups"]]},
+ {id:"president",name:"PRESIDENT",mode:"global",ag:[["decision","President","Final decision"]]}
 ];
-const ESTILO={
- "analista-equipas":["#4da3ff","escudo"],"historiador":["#ffa94d","circulo"],"arbitro":["#ffd23f","hex"],"meteorologo":["#3fa9f5","circulo"],
- "estadio":["#ff7a5c","penta"],"medico":["#2ee59d","escudo"],"jornalista":["#ff4fa3","quad"],"forma-jogadores":["#7bed5a","losango"],
- "mercado-resultado":["#5dd6ff","escudo"],"mercado-golos":["#35e08c","circulo"],"mercado-cantos":["#ffe14a","hex"],"mercado-cartoes":["#ff5d73","quad"],
- "propostas":["#b57bff","penta"],"juri-advogado-diabo":["#ff5d73","hex"],"juri-estatistico":["#4da3ff","losango"],
- "juri-gestor-risco":["#ffa94d","escudo"],"juri-noticias":["#ff4fa3","circulo"],"decisao":["#2ee59d","penta"]};
-const FORMAS={circulo:"border-radius:50%",escudo:"clip-path:polygon(50% 0,100% 15%,100% 60%,50% 100%,0 60%,0 15%)",
- hex:"clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)",losango:"clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)",
+const STYLE={
+ "team-analyst":["#4da3ff","shield"],"historian":["#ffa94d","circle"],"referee":["#ffd23f","hex"],"meteorologist":["#3fa9f5","circle"],
+ "stadium":["#ff7a5c","penta"],"medic":["#2ee59d","shield"],"reporter":["#ff4fa3","quad"],"player-form":["#7bed5a","diamond"],
+ "market-result":["#5dd6ff","shield"],"market-goals":["#35e08c","circle"],"market-corners":["#ffe14a","hex"],"market-cards":["#ff5d73","quad"],
+ "proposals":["#b57bff","penta"],"jury-devils-advocate":["#ff5d73","hex"],"jury-statistician":["#4da3ff","diamond"],
+ "jury-risk-manager":["#ffa94d","shield"],"jury-news":["#ff4fa3","circle"],"decision":["#2ee59d","penta"]};
+const SHAPES={circle:"border-radius:50%",shield:"clip-path:polygon(50% 0,100% 15%,100% 60%,50% 100%,0 60%,0 15%)",
+ hex:"clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)",diamond:"clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)",
  penta:"clip-path:polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%)",quad:"border-radius:18px"};
-const ROT={espera:"EM ESPERA",trabalhar:"A TRABALHAR",concluido:"CONCLUÍDO"};
-const VERBO={recolha:"concluiu o relatório de",mercados:"propôs candidatas para",construtor:"montou as múltiplas",juri:"votou",presidente:"emitiu a decisão"};
+const LABELS={waiting:"WAITING",working:"WORKING",done:"DONE"};
+const VERBS={collection:"finished the report on",markets:"proposed candidates for",builder:"built the multiples",jury:"voted",president:"issued the decision"};
 const esc=s=>String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 
-/* ---------- markdown mínimo ---------- */
+/* ---------- minimal markdown ---------- */
 function md(src){
   const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`(.+?)`/g,"<code>$1</code>");
   const L=src.split("\n");let o=[],i=0;
@@ -263,184 +298,186 @@ function md(src){
     o.push("<p>"+inl(l)+"</p>");i++}
   return o.join("")}
 
-/* ---------- construção do DOM (uma vez) ---------- */
+/* ---------- build the DOM (once) ---------- */
 const cards={},nodes={};
-(function construir(){
-  const cont=document.getElementById("fases"),pipe=document.getElementById("pipe");let n=0;
+(function build(){
+  const cont=document.getElementById("phases"),pipe=document.getElementById("pipe");let n=0;
   META.forEach((f,fi)=>{
-    const sec=document.createElement("section");sec.className="fase";
-    sec.innerHTML='<h2>'+f.nome+'</h2><div class="grid"></div>';
+    const sec=document.createElement("section");sec.className="phase";
+    sec.innerHTML='<h2>'+f.name+'</h2><div class="grid"></div>';
     const g=sec.querySelector(".grid");
     f.ag.forEach(a=>{
-      const [cor,forma]=ESTILO[a[0]];
-      const el=document.createElement("div");el.className="card espera";el.dataset.id=a[0];el.style.setProperty("--ac",cor);
-      el.innerHTML='<div class="scan"></div><div class="av" style="--ac:'+cor+'"><div class="orb"></div><div class="b" style="'+FORMAS[forma]+'"></div><div class="e l"></div><div class="e r"></div></div>'+
-        '<div class="pill">EM ESPERA</div><div class="nome">'+esc(a[1])+'</div><div class="desc">'+esc(a[2])+'</div>'+
-        (f.id==="juri"?'<div class="votos"></div>':'')+'<div class="pr"><div class="seg"></div><span class="cnt">0/0</span></div>';
+      const [color,shape]=STYLE[a[0]];
+      const el=document.createElement("div");el.className="card waiting";el.dataset.id=a[0];el.style.setProperty("--ac",color);
+      el.innerHTML='<div class="scan"></div><div class="av" style="--ac:'+color+'"><div class="orb"></div><div class="b" style="'+SHAPES[shape]+'"></div><div class="e l"></div><div class="e r"></div></div>'+
+        '<div class="pill">WAITING</div><div class="name">'+esc(a[1])+'</div><div class="desc">'+esc(a[2])+'</div>'+
+        (f.id==="jury"?'<div class="votes"></div>':'')+'<div class="pr"><div class="seg"></div><span class="cnt">0/0</span></div>';
       g.appendChild(el);cards[a[0]]=el;
     });
     cont.appendChild(sec);
     if(fi>0){const l=document.createElement("div");l.className="link";l.id="link-"+f.id;pipe.appendChild(l)}
-    const nd=document.createElement("div");nd.className="node";nd.innerHTML='<div class="ring"><span>'+(fi+1)+'</span></div><b>'+f.nome+'</b><small>0/'+f.ag.length+'</small>';
+    const nd=document.createElement("div");nd.className="node";nd.innerHTML='<div class="ring"><span>'+(fi+1)+'</span></div><b>'+f.name+'</b><small>0/'+f.ag.length+'</small>';
     pipe.appendChild(nd);nodes[f.id]=nd;
   });
 })();
 
 function seg(a){
   if(!a.total)return '<div class="s" style="flex:1"></div>';
-  if(a.total>16){const p=Math.round(100*a.feitos/a.total);return '<div class="s" style="flex:1;background:linear-gradient(90deg,var(--gr) '+p+'%,rgba(255,255,255,.09) 0)"></div>'}
-  let h="";for(let i=0;i<a.total;i++)h+='<div class="s'+(i<a.feitos?" on":(i===a.feitos&&a.estado==="trabalhar"?" run":""))+'"></div>';return h}
+  if(a.total>16){const p=Math.round(100*a.done/a.total);return '<div class="s" style="flex:1;background:linear-gradient(90deg,var(--gr) '+p+'%,rgba(255,255,255,.09) 0)"></div>'}
+  let h="";for(let i=0;i<a.total;i++)h+='<div class="s'+(i<a.done?" on":(i===a.done&&a.state==="working"?" run":""))+'"></div>';return h}
 
-/* ---------- estado ---------- */
-let D=null,dia="",ultimo="",demoT0=null,visto=new Set(),primeira=true;
+/* ---------- state ---------- */
+let D=null,day="",last="",demoT0=null,seen=new Set(),first=true;
 const $=id=>document.getElementById(id);
 function hms(s){s=Math.max(0,Math.floor(s));const m=Math.floor(s/60);return String(m).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
 
 function render(d){
   D=d;
-  const sel=$("dia"),datas=d.datas.includes(d.data)?d.datas:[d.data,...d.datas];
-  const h='<option>'+datas.join("</option><option>")+"</option>";
-  if(sel.dataset.h!==h){sel.innerHTML=h;sel.dataset.h=h}sel.value=d.data;
+  const sel=$("day"),dates=d.dates.includes(d.date)?d.dates:[d.date,...d.dates];
+  const h='<option>'+dates.join("</option><option>")+"</option>";
+  if(sel.dataset.h!==h){sel.innerHTML=h;sel.dataset.h=h}sel.value=d.date;
   let tot=0,fe=0,at=0;
-  d.fases.forEach(f=>f.agentes.forEach(a=>{tot++;if(a.estado==="concluido")fe++;if(a.estado==="trabalhar")at++;
+  d.phases.forEach(f=>f.agents.forEach(a=>{tot++;if(a.state==="done")fe++;if(a.state==="working")at++;
     const el=cards[a.id];if(!el)return;
-    const cl="card "+a.estado;if(el.className!==cl)el.className=cl;
-    const p=el.querySelector(".pill"),tx=ROT[a.estado];if(p.dataset.t!==tx){p.dataset.t=tx;p.textContent=tx}
-    const s=el.querySelector(".seg"),k=a.feitos+"/"+a.total+a.estado;if(s.dataset.k!==k){s.dataset.k=k;s.innerHTML=seg(a)}
-    el.querySelector(".cnt").textContent=a.feitos+"/"+a.total;
-    const vv=el.querySelector(".votos");if(vv)vv.innerHTML=Object.entries(a.votos||{}).map(([k,v])=>'<span class="v '+k.replace(" ","")+'">'+esc(k)+" ×"+v+"</span>").join("");
+    const cl="card "+a.state;if(el.className!==cl)el.className=cl;
+    const p=el.querySelector(".pill"),tx=LABELS[a.state];if(p.dataset.t!==tx){p.dataset.t=tx;p.textContent=tx}
+    const s=el.querySelector(".seg"),k=a.done+"/"+a.total+a.state;if(s.dataset.k!==k){s.dataset.k=k;s.innerHTML=seg(a)}
+    el.querySelector(".cnt").textContent=a.done+"/"+a.total;
+    const vv=el.querySelector(".votes");if(vv)vv.innerHTML=Object.entries(a.votes||{}).map(([k,v])=>'<span class="v '+k.replace(" ","")+'">'+esc(k)+" ×"+v+"</span>").join("");
   }));
   // pipeline
-  let anteriorOk=true;
-  d.fases.forEach((f,i)=>{
-    const total=f.agentes.length,feitos=f.agentes.filter(a=>a.estado==="concluido").length,ativo=f.agentes.some(a=>a.estado==="trabalhar");
-    const st=feitos===total?"concluido":(ativo||feitos>0?"trabalhar":"espera");
-    const nd=nodes[f.id];nd.className="node "+st;nd.querySelector(".ring").style.setProperty("--p",Math.round(100*feitos/total));nd.querySelector("small").textContent=feitos+"/"+total;
-    const lk=$("link-"+f.id);if(lk)lk.className="link"+(anteriorOk?(st==="concluido"?" ok":(st==="trabalhar"?" on":"")):"");
-    anteriorOk=anteriorOk&&st==="concluido";
+  let prevOk=true;
+  d.phases.forEach((f,i)=>{
+    const total=f.agents.length,done=f.agents.filter(a=>a.state==="done").length,active=f.agents.some(a=>a.state==="working");
+    const st=done===total?"done":(active||done>0?"working":"waiting");
+    const nd=nodes[f.id];nd.className="node "+st;nd.querySelector(".ring").style.setProperty("--p",Math.round(100*done/total));nd.querySelector("small").textContent=done+"/"+total;
+    const lk=$("link-"+f.id);if(lk)lk.className="link"+(prevOk?(st==="done"?" ok":(st==="working"?" on":"")):"");
+    prevOk=prevOk&&st==="done";
   });
-  const ex=d.execucao||{};
-  const nj=d.jogos.length||((d.opcoes||[]).length&&!d.iniciou?0:0);
-  $("s1").textContent=d.jogos.length?d.jogos.length:(d.iniciou?"…":((d.opcoes||[]).length||"—"));
+  const ex=d.execution||{};
+  const nj=d.matches.length||((d.options||[]).length&&!d.started?0:0);
+  $("s1").textContent=d.matches.length?d.matches.length:(d.started?"…":((d.options||[]).length||"—"));
   $("s2").textContent=at;$("s3").textContent=fe+"/"+tot;
-  // lista de alvo
-  const asel=$("alvo"),cur=asel.value;
-  const html='<option value="">Dia completo (só jogos que ainda não começaram)</option>'+(d.opcoes||[]).map(o=>{const ms=Date.parse(o.iso),ini=ms<=Date.now(),perto=!ini&&ms-Date.now()<30*60000;
-    const hl=isNaN(ms)?esc(o.hora)+" UTC":new Date(ms).toLocaleTimeString("pt-PT",{timeZone:"Europe/Lisbon",hour:"2-digit",minute:"2-digit"});
-    return '<option value="'+esc(o.titulo)+'"'+(ini||perto?" disabled":"")+">"+hl+" · "+esc(o.titulo)+" ("+esc(o.liga)+")"+(ini?" · JÁ COMEÇOU":(perto?" · A COMEÇAR":""))+"</option>"}).join("");
+  // lista de target
+  const asel=$("target"),cur=asel.value;
+  const html='<option value="">Full day (only matches that have not started)</option>'+(d.options||[]).map(o=>{const ms=Date.parse(o.iso),began=ms<=Date.now(),near=!startBtn&&ms-Date.now()<30*60000;
+    const hl=isNaN(ms)?esc(o.time)+" UTC":new Date(ms).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+    return '<option value="'+esc(o.title)+'"'+(began||near?" disabled":"")+">"+hl+" · "+esc(o.title)+" ("+esc(o.league)+")"+(began?" · ALREADY STARTED":(near?" · STARTING SOON":""))+"</option>"}).join("");
   if(asel.dataset.h!==html){asel.innerHTML=html;asel.dataset.h=html;asel.value=cur}
-  const emDemo=demoT0!==null,corre=!!ex.a_correr;
-  $("ini").disabled=corre||emDemo;$("par").disabled=!corre||emDemo;asel.disabled=corre||emDemo;
+  const inDemo=demoT0!==null,isRunning=!!ex.running;
+  $("startBtn").disabled=isRunning||inDemo;$("stopBtn").disabled=!isRunning||inDemo;asel.disabled=isRunning||inDemo;
   const m=$("msg");m.className="";
-  if(emDemo){m.textContent=""}
-  else if(corre){m.textContent="A correr desde "+ex.inicio+(ex.alvo?" · "+ex.alvo:"")}
-  else if(ex.codigo===0){m.textContent="Análise terminada."}
-  else if(ex.codigo!=null){m.className="erro";m.textContent="Terminou com erro (código "+ex.codigo+"). Vê o registo."}
+  if(inDemo){m.textContent=""}
+  else if(isRunning){m.textContent="Running since "+ex.started+(ex.target?" · "+ex.target:"")}
+  else if(ex.code===0){m.textContent="Analysis finished."}
+  else if(ex.code!=null){m.className="erro";m.textContent="Finished with an error (code "+ex.code+"). Check the log."}
   else{m.textContent=""}
   $("plog").style.display=ex.log?"block":"none";$("log").textContent=ex.log||"";
-  const ped=$("propostas"),dec=$("decisao");
-  ped.innerHTML=d.propostas?md(d.propostas):'<div class="vazio">Ainda não há propostas. O construtor trabalha depois dos especialistas.</div>';
-  dec.innerHTML=d.decisao?md(d.decisao):'<div class="vazio">A decisão final aparece aqui quando o Presidente terminar.</div>';
-  $("pdec").classList.toggle("decisao",!!d.decisao);
+  const ped=$("proposals"),dec=$("decision");
+  ped.innerHTML=d.proposals?md(d.proposals):'<div class="empty">No proposals yet. The builder works after the specialists.</div>';
+  dec.innerHTML=d.decision?md(d.decision):'<div class="empty">The final decision appears here when the President finishes.</div>';
+  $("pdec").classList.toggle("decision",!!d.decision);
   // feed
-  const cor=id=>(ESTILO[id]||["#35e0ff"])[0];
-  const linhas=[];
-  (d.eventos||[]).forEach(e=>{const meta=META.find(f=>f.id===e.fase);
-    linhas.push({k:e.t+e.id+e.jogo,h:'<time>'+esc(e.hora)+'</time><span><b style="--c:'+cor(e.id)+'">'+esc(e.agente)+"</b> "+(VERBO[e.fase]||"concluiu")+(e.jogo?" <em>"+esc(e.jogo)+"</em>":"")+"</span>",c:"ev"})});
-  if(ex.inicio)linhas.push({k:"ini"+ex.inicio,h:"<time>"+esc(ex.inicio)+"</time><span>Análise iniciada"+(ex.alvo?" · <em>"+esc(ex.alvo)+"</em>":"")+"</span>",c:"ev sis"});
+  const color=id=>(STYLE[id]||["#35e0ff"])[0];
+  const lines=[];
+  (d.events||[]).forEach(e=>{const meta=META.find(f=>f.id===e.phase);
+    lines.push({k:e.t+e.id+e.match,h:'<time>'+esc(e.time)+'</time><span><b style="--c:'+color(e.id)+'">'+esc(e.agent)+"</b> "+(VERBS[e.phase]||"concluiu")+(e.match?" <em>"+esc(e.match)+"</em>":"")+"</span>",c:"ev"})});
+  if(ex.started)lines.push({k:"began"+ex.started,h:"<time>"+esc(ex.started)+"</time><span>Analysis started"+(ex.target?" · <em>"+esc(ex.target)+"</em>":"")+"</span>",c:"ev system"});
   const fd=$("feed");
-  if(!linhas.length){fd.innerHTML='<div class="vazio">À espera de atividade… Os relatórios dos agentes aparecem aqui assim que são gravados.</div>'}
-  else{fd.innerHTML=linhas.map(l=>'<div class="'+l.c+(!primeira&&!visto.has(l.k)?" new":"")+'">'+l.h+"</div>").join("");linhas.forEach(l=>visto.add(l.k))}
-  $("nev").textContent=linhas.length?linhas.length+" eventos":"";
-  primeira=false;
-  tique();
+  if(!lines.length){fd.innerHTML='<div class="empty">Waiting for activity… Agent reports appear here as soon as they are saved.</div>'}
+  else{fd.innerHTML=lines.map(l=>'<div class="'+l.c+(!first&&!seen.has(l.k)?" new":"")+'">'+l.h+"</div>").join("");lines.forEach(l=>seen.add(l.k))}
+  const tkItems=(d.events||[]).slice(0,12).map(e=>'<span><b>'+esc(e.time)+'</b><em>'+esc(e.agent)+'</em>'+(e.match?' · '+esc(e.match):'')+'</span>').join("")||'<span><b>STANDBY</b><em>waiting for the first agent report</em></span>';
+  if($("tk").dataset.h!==tkItems){$("tk").dataset.h=tkItems;$("tk").innerHTML=tkItems+tkItems}
+  $("nev").textContent=lines.length?lines.length+" events":"";
+  first=false;
+  tick();
 }
-function tique(){
-  const d=D;if(!d)return;const ex=d.execucao||{};
-  $("relogio").textContent=new Date().toLocaleTimeString("pt-PT");
-  let tempo="",st="EM ESPERA";
-  const tot=d.fases.reduce((n,f)=>n+f.agentes.length,0),fe=d.fases.reduce((n,f)=>n+f.agentes.filter(a=>a.estado==="concluido").length,0);
-  if(demoT0!==null){const t=(Date.now()-demoT0)/1000;tempo=hms(Math.min(t,DEMO_FIM));st=(fe===tot?"CONCLUÍDO":"A ANALISAR")}
-  else if(ex.a_correr&&ex.inicio){const p=ex.inicio.split(":").map(Number),n=new Date(),i=new Date();i.setHours(p[0],p[1],p[2],0);let s=(n-i)/1000;if(s<0)s+=86400;tempo=hms(s);st="A ANALISAR"}
-  else if(fe===tot&&tot>0){st="CONCLUÍDO"}
-  else if(d.iniciou){st="A ANALISAR"}
-  $("s4").textContent=st+(tempo?" · "+tempo:"");
+function tick(){
+  const d=D;if(!d)return;const ex=d.execution||{};
+  $("clock").textContent=new Date().toLocaleTimeString();
+  let elapsed="",st="WAITING";
+  const tot=d.phases.reduce((n,f)=>n+f.agents.length,0),fe=d.phases.reduce((n,f)=>n+f.agents.filter(a=>a.state==="done").length,0);
+  if(demoT0!==null){const t=(Date.now()-demoT0)/1000;elapsed=hms(Math.min(t,DEMO_END));st=(fe===tot?"DONE":"ANALYSING")}
+  else if(ex.running&&ex.started){const p=ex.started.split(":").map(Number),n=new Date(),i=new Date();i.setHours(p[0],p[1],p[2],0);let s=(n-i)/1000;if(s<0)s+=86400;elapsed=hms(s);st="ANALYSING"}
+  else if(fe===tot&&tot>0){st="DONE"}
+  else if(d.started){st="ANALYSING"}
+  $("s4").textContent=st+(elapsed?" · "+elapsed:"");
 }
-setInterval(tique,1000);
+setInterval(tick,1000);
 
-/* ---------- ligação ao servidor ---------- */
-async function carregar(){
+/* ---------- server connection ---------- */
+async function load(){
   if(demoT0!==null)return;
-  try{const r=await fetch("/api/estado?data="+encodeURIComponent(dia));const t=await r.text();
-    const d=JSON.parse(t);if(!dia)dia=d.data;
-    const j=JSON.parse(t);j.atualizado="";const chave=JSON.stringify(j);
-    if(chave!==ultimo){ultimo=chave;render(d)}
-  }catch(e){$("msg").className="erro";$("msg").textContent="Sem ligação ao servidor (corre python scripts/dashboard.py)"}}
-$("dia").addEventListener("change",e=>{dia=e.target.value;ultimo="";carregar()});
-async function acao(url,corpo){
-  const m=$("msg");m.className="";m.textContent="A enviar…";
-  try{const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json","X-Sala":"1"},body:JSON.stringify(corpo||{})});
-    const j=await r.json();if(!j.ok){m.className="erro";m.textContent=j.erro||"Erro"}}
-  catch(e){m.className="erro";m.textContent="Sem ligação ao servidor"}
-  ultimo="";carregar()}
-$("ini").addEventListener("click",()=>acao("/api/iniciar",{alvo:$("alvo").value}));
-$("par").addEventListener("click",()=>acao("/api/parar"));
+  try{const r=await fetch("/api/state?date="+encodeURIComponent(day));const t=await r.text();
+    const d=JSON.parse(t);if(!day)day=d.date;
+    const j=JSON.parse(t);j.updated="";const key=JSON.stringify(j);
+    if(key!==last){last=key;render(d)}
+  }catch(e){$("msg").className="erro";$("msg").textContent="No connection to the server (run python scripts/dashboard.py)"}}
+$("day").addEventListener("change",e=>{day=e.target.value;last="";load()});
+async function act(url,body){
+  const m=$("msg");m.className="";m.textContent="Sending…";
+  try{const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json","X-Room":"1"},body:JSON.stringify(body||{})});
+    const j=await r.json();if(!j.ok){m.className="erro";m.textContent=j.erro||"Error"}}
+  catch(e){m.className="erro";m.textContent="No connection to the server"}
+  last="";load()}
+$("startBtn").addEventListener("click",()=>act("/api/start",{target:$("target").value}));
+$("stopBtn").addEventListener("click",()=>act("/api/stop"));
 
-/* ---------- modo demonstração (dados fictícios) ---------- */
-const DEMO_FIM=33,DJ=["Jogo exemplo 1","Jogo exemplo 2","Jogo exemplo 3"];
-function demoEstado(t){
-  const fim={};
-  META[0].ag.forEach((a,i)=>DJ.forEach((j,g)=>fim[a[0]+"|"+g]=2+i*.8+g*1.3+((i*7+g*3)%5)*.25));
-  META[1].ag.forEach((a,i)=>DJ.forEach((j,g)=>fim[a[0]+"|"+g]=12.5+i*.9+g*1.2+((i*5+g)%3)*.3));
-  fim["propostas|0"]=21;META[3].ag.forEach((a,i)=>fim[a[0]+"|0"]=23+i*1.6);fim["decisao|0"]=31;
-  const t0=Date.now()-t*1000,eventos=[];let ant=true;
-  const fases=META.map(f=>{
-    let todos=true;
+/* ---------- demo mode (fictional data) ---------- */
+const DEMO_END=33,DJ=["Example match 1","Example match 2","Example match 3"];
+function demoState(t){
+  const ends={};
+  META[0].ag.forEach((a,i)=>DJ.forEach((j,g)=>ends[a[0]+"|"+g]=2+i*.8+g*1.3+((i*7+g*3)%5)*.25));
+  META[1].ag.forEach((a,i)=>DJ.forEach((j,g)=>ends[a[0]+"|"+g]=12.5+i*.9+g*1.2+((i*5+g)%3)*.3));
+  ends["proposals|0"]=21;META[3].ag.forEach((a,i)=>ends[a[0]+"|0"]=23+i*1.6);ends["decision|0"]=31;
+  const t0=Date.now()-t*1000,events=[];let prev=true;
+  const phases=META.map(f=>{
+    let allDone=true;
     const ag=f.ag.map(a=>{
-      const n=f.modo==="jogo"?DJ.length:1,fich=[];
-      for(let g=0;g<n;g++){const ff=fim[a[0]+"|"+g];if(ff!==undefined&&t>=ff){
-        fich.push({rotulo:f.modo==="jogo"?DJ[g]:a[1],caminho:"",t:ff});
-        eventos.push({t:ff,hora:new Date(t0+ff*1000).toLocaleTimeString("pt-PT"),agente:a[1],id:a[0],fase:f.id,jogo:f.modo==="jogo"?DJ[g]:""})}}
-      const fe=fich.length;let est="espera";
-      if(fe===n)est="concluido";else if(fe>0||(ant&&t>=1))est="trabalhar";
-      if(est!=="concluido")todos=false;
-      const votos={};if(f.id==="juri"&&fe){votos[{"juri-advogado-diabo":"REDUZIR STAKE","juri-estatistico":"APROVAR","juri-gestor-risco":"APROVAR","juri-noticias":"APROVAR"}[a[0]]]=1}
-      return {id:a[0],nome:a[1],desc:a[2],estado:est,feitos:fe,total:n,ficheiros:fich,votos};
+      const n=f.mode==="match"?DJ.length:1,fl=[];
+      for(let g=0;g<n;g++){const ff=ends[a[0]+"|"+g];if(ff!==undefined&&t>=ff){
+        fl.push({label:f.mode==="match"?DJ[g]:a[1],path:"",t:ff});
+        events.push({t:ff,time:new Date(t0+ff*1000).toLocaleTimeString(),agent:a[1],id:a[0],phase:f.id,match:f.mode==="match"?DJ[g]:""})}}
+      const fe=fl.length;let est="waiting";
+      if(fe===n)est="done";else if(fe>0||(prev&&t>=1))est="working";
+      if(est!=="done")allDone=false;
+      const votes={};if(f.id==="jury"&&fe){votes[{"jury-devils-advocate":"REDUCE STAKE","jury-statistician":"APPROVE","jury-risk-manager":"APPROVE","jury-news":"APPROVE"}[a[0]]]=1}
+      return {id:a[0],name:a[1],desc:a[2],state:est,done:fe,total:n,files:fl,votes};
     });
-    ant=ant&&todos;return {id:f.id,nome:f.nome,modo:f.modo,agentes:ag};
+    prev=prev&&allDone;return {id:f.id,name:f.name,mode:f.mode,agents:ag};
   });
-  eventos.sort((a,b)=>b.t-a.t);
-  const ini=new Date(t0).toLocaleTimeString("pt-PT");
-  return {data:"DEMO",datas:["DEMO"],jogos:t>=1?DJ.map(x=>({titulo:x,pasta:"",liga:""})):[],opcoes:[],iniciou:t>=1,
-    fases,eventos:eventos.slice(0,40),
-    propostas:t>=21?"## DEMONSTRAÇÃO\n\n**Dados fictícios, não é uma aposta real.**\n\n| Jogo | Mercado | Odd |\n|---|---|---|\n| Jogo exemplo 1 | Seleção exemplo | 1.50 |\n| Jogo exemplo 2 | Seleção exemplo | 1.60 |\n| Jogo exemplo 3 | Seleção exemplo | 1.45 |\n\nÉ assim que o bilhete proposto aparece aqui.":"",
-    decisao:t>=31?"## DEMONSTRAÇÃO\n\n**Decisão fictícia** do Presidente: maioria do júri a favor, sem veto do gestor de risco.\n\nNa análise real aparecem aqui as apostas aprovadas, o stake e o motivo, ou a frase **hoje não há aposta**.":"",
-    execucao:{a_correr:t<31.5,inicio:ini,alvo:"demonstração",codigo:null,log:""}};
+  events.sort((a,b)=>b.t-a.t);
+  const startBtn=new Date(t0).toLocaleTimeString();
+  return {date:"DEMO",dates:["DEMO"],matches:t>=1?DJ.map(x=>({title:x,folder:"",league:""})):[],options:[],started:t>=1,
+    phases,events:events.slice(0,40),
+    proposals:t>=21?"## DEMO\n\n**Fictional data, not a real bet.**\n\n| Match | Market | Odds |\n|---|---|---|\n| Example match 1 | Example selection | 1.50 |\n| Example match 2 | Example selection | 1.60 |\n| Example match 3 | Example selection | 1.45 |\n\nThis is how the proposed bets appear here.":"",
+    decision:t>=31?"## DEMO\n\n**Fictional decision** by the President: jury majority in favour, no veto from the risk manager.\n\nIn a real analysis the approved bets, the stake and the reasons appear here, or the sentence **no bet today**.":"",
+    execution:{running:t<31.5,started:startBtn,target:"demo",code:null,log:""}};
 }
 let demoTimer=null;
-function demoLoop(){const t=(Date.now()-demoT0)/1000;render(demoEstado(Math.min(t,DEMO_FIM)));if(t>=DEMO_FIM+1.5){}}
+function demoLoop(){const t=(Date.now()-demoT0)/1000;render(demoState(Math.min(t,DEMO_END)));if(t>=DEMO_END+1.5){}}
 $("demo").addEventListener("click",()=>{
-  if(demoT0===null){demoT0=Date.now();visto=new Set();primeira=true;$("demobar").classList.add("on");$("demo").textContent="■ SAIR DA DEMONSTRAÇÃO";
+  if(demoT0===null){demoT0=Date.now();seen=new Set();first=true;$("demobar").classList.add("on");$("demo").textContent="■ EXIT DEMO";
     demoLoop();demoTimer=setInterval(demoLoop,400)}
-  else{clearInterval(demoTimer);demoT0=null;visto=new Set();primeira=true;$("demobar").classList.remove("on");$("demo").textContent="◈ VER DEMONSTRAÇÃO";ultimo="";carregar()}
+  else{clearInterval(demoTimer);demoT0=null;seen=new Set();first=true;$("demobar").classList.remove("on");$("demo").textContent="◈ VIEW DEMO";last="";load()}
 });
 if(location.search.indexOf("demo=1")>=0)setTimeout(()=>$("demo").click(),300);
 
-/* ---------- relatórios ---------- */
-document.getElementById("fases").addEventListener("click",e=>{
+/* ---------- reports ---------- */
+document.getElementById("phases").addEventListener("click",e=>{
   const c=e.target.closest(".card");if(!c||!D)return;
-  let ag=null;D.fases.forEach(f=>f.agentes.forEach(a=>{if(a.id===c.dataset.id)ag=a}));if(!ag)return;
-  $("mtitulo").textContent=ag.nome;const lista=$("mlista"),txt=$("mtexto");txt.innerHTML="";lista.innerHTML="";
-  if(!ag.ficheiros.length||demoT0!==null){txt.innerHTML='<div class="vazio">'+(demoT0!==null?"Na demonstração não há relatórios reais.":"Este agente ainda não gravou nenhum relatório.")+"</div>"}
-  else{ag.ficheiros.forEach((f,i)=>{const b=document.createElement("button");b.textContent=f.rotulo;b.onclick=()=>abrir(f.caminho,b);lista.appendChild(b);if(i===0&&ag.ficheiros.length===1)abrir(f.caminho,b)})}
+  let ag=null;D.phases.forEach(f=>f.agents.forEach(a=>{if(a.id===c.dataset.id)ag=a}));if(!ag)return;
+  $("mtitle").textContent=ag.name;const lista=$("mlist"),txt=$("mtext");txt.innerHTML="";lista.innerHTML="";
+  if(!ag.files.length||demoT0!==null){txt.innerHTML='<div class="empty">'+(demoT0!==null?"There are no real reports in the demo.":"This agent has not saved a report yet.")+"</div>"}
+  else{ag.files.forEach((f,i)=>{const b=document.createElement("button");b.textContent=f.label;b.onclick=()=>openFile(f.path,b);lista.appendChild(b);if(i===0&&ag.files.length===1)openFile(f.path,b)})}
   $("modal").classList.add("on")});
-async function abrir(caminho,btn){
-  document.querySelectorAll("#mlista button").forEach(b=>b.classList.remove("sel"));if(btn)btn.classList.add("sel");
-  const r=await fetch("/api/ficheiro?caminho="+encodeURIComponent(caminho));$("mtexto").innerHTML=md(await r.text())}
-function fechar(){$("modal").classList.remove("on")}
-$("modal").addEventListener("click",e=>{if(e.target.id==="modal")fechar()});
+async function openFile(path,btn){
+  document.querySelectorAll("#mlist button").forEach(b=>b.classList.remove("sel"));if(btn)btn.classList.add("sel");
+  const r=await fetch("/api/file?path="+encodeURIComponent(path));$("mtext").innerHTML=md(await r.text())}
+function closeModal(){$("modal").classList.remove("on")}
+$("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
 
-carregar();setInterval(carregar,3000);
+load();setInterval(load,3000);
 </script>
 </body>
 </html>

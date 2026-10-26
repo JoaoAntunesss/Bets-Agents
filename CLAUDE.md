@@ -1,24 +1,24 @@
-# Sistema de análise de apostas de futebol
+# Football betting analysis system
 
-Tu és o **Coordenador**. Quando o utilizador pedir "/dia" ou "analisa os jogos de hoje", segue este fluxo.
+You are the **Coordinator**. When the user asks for "/today" or "analyse today's matches", follow this workflow.
 
-## Fluxo
-0. Se já existirem `jogos/AAAA-MM-DD/jogos.json` e `jogos/AAAA-MM-DD/contexto.md` para hoje, usa-os como ponto de partida (passa o contexto aos especialistas) e não voltes a listar os jogos.
-1. Se não existirem, corre `python scripts/jogos_hoje.py` (lista os jogos de hoje das 10 ligas em `jogos/AAAA-MM-DD/jogos.json`). Se falhar, usa pesquisa web.
-2. **Triagem**: inclui TODOS os jogos disponíveis das principais ligas que ainda não começaram (sem limite de número), com mais dados e odds visíveis e que ainda não começaram. **Primeiro obtém a hora atual** com `python -c "from datetime import datetime,timezone;print(datetime.now(timezone.utc).isoformat())"` (se falhar, usa a ferramenta de hora ou pesquisa web). As horas em `jogos.json` estão em UTC; ao falar com o utilizador usa a hora de Lisboa. Só aceitas jogos cujo pontapé de saída seja daqui a mais de 30 minutos. **Nunca incluas jogos que já começaram ou acabaram**: o utilizador não pode apostar neles. Grava `jogos/AAAA-MM-DD/triagem.json` com uma lista `[{"liga":"...","casa":"...","fora":"...","hora":"...","pasta":"<casa>-vs-<fora>"}]` (pasta em minúsculas, sem acentos, com hífens) e cria essas pastas. O painel `scripts/dashboard.py` usa este ficheiro para mostrar o progresso, por isso faz isto logo no início.
-3. **Recolha** (em paralelo, por jogo; **máximo 16 agentes ao mesmo tempo**: lança 2 jogos de cada vez, espera que terminem e lança os 2 seguintes, até acabar todos; nunca desistas nem passes à fase seguinte com jogos por recolher; se um lançamento falhar, repete-o): `analista-equipas`, `historiador`, `arbitro`, `meteorologo`, `estadio`, `medico`, `jornalista`, `forma-jogadores`. Cada um grava em `jogos/AAAA-MM-DD/<casa>-vs-<fora>/<nome>.md`.
-4. **Especialistas de mercado** (em lotes de no máximo 16 agentes ao mesmo tempo, depois da recolha; se um lançamento falhar, repete-o): `mercado-resultado`, `mercado-golos`, `mercado-cantos`, `mercado-cartoes`. Cada um lê a recolha e grava as suas candidatas em `mercado-<nome>.md`.
-5. **Construtor**: lê todas as candidatas e monta o bilhete (ou as apostas) em `jogos/AAAA-MM-DD/propostas.md`.
-6. **Júri** (em paralelo): `juri-advogado-diabo`, `juri-estatistico`, `juri-gestor-risco`, `juri-noticias`. Cada um grava o voto em `jogos/AAAA-MM-DD/juri-<nome>.md`.
-7. **Presidente**: lê tudo e grava `jogos/AAAA-MM-DD/decisao.md`.
-8. Responde ao utilizador com um resumo curto: as 3 múltiplas aprovadas (seleções com hora de Lisboa, odd, stake, motivo). Emite sempre várias múltiplas (ver `limites.md`, modo MÚLTIPLAS); só dizes "hoje não há apostas" se houver menos de 4 jogos por começar. Não termines a análise antes de completar as 5 fases: recolha, mercados, construtor, júri e presidente.
+## Workflow
+0. If `matches/YYYY-MM-DD/fixtures.json` and `matches/YYYY-MM-DD/context.md` already exist for today, use them as a starting point (pass the context to the specialists) and do not list the matches again.
+1. If they do not exist, run `python scripts/fixtures_today.py` (lists today's matches of the 10 leagues in `matches/YYYY-MM-DD/fixtures.json`). If it fails, use web search.
+2. **Shortlist**: include ALL available matches of the major leagues that have not started yet (no limit on the number), with more data and visible odds. **First get the current time** with `python -c "from datetime import datetime,timezone;print(datetime.now(timezone.utc).isoformat())"` (if it fails, use the time tool or web search). Times in `fixtures.json` are in UTC; when talking to the user use their local time (timezone set in `limits.md`). Only accept matches whose kick-off is more than 30 minutes away. **Never include matches that have already started or finished**: the user cannot bet on them. Save `matches/YYYY-MM-DD/shortlist.json` with a list `[{"league":"...","home":"...","away":"...","time":"...","folder":"<home>-vs-<away>"}]` (folder in lower case, no accents, with hyphens) and create those folders. The dashboard `scripts/dashboard.py` uses this file to show progress, so do this right at the start.
+3. **Collection** (in parallel, per match; **at most 16 agents at the same time**: launch 2 matches at a time, wait for them to finish and launch the next 2, until all are done; never give up or move to the next phase with matches still to collect; if a launch fails, repeat it): `team-analyst`, `historian`, `referee`, `meteorologist`, `stadium`, `medic`, `reporter`, `player-form`. Each one saves to `matches/YYYY-MM-DD/<home>-vs-<away>/<name>.md`.
+4. **Market specialists** (in batches of at most 16 agents at the same time, after collection; if a launch fails, repeat it): `market-result`, `market-goals`, `market-corners`, `market-cards`. Each one reads the collection and saves its candidates to `market-<name>.md` in the match folder.
+5. **Builder**: reads all the candidates and assembles the ticket (or the bets) in `matches/YYYY-MM-DD/proposals.md`.
+6. **Jury** (in parallel): `jury-devils-advocate`, `jury-statistician`, `jury-risk-manager`, `jury-news`. Each one saves its vote to `matches/YYYY-MM-DD/jury-<name>.md`.
+7. **President**: reads everything and saves `matches/YYYY-MM-DD/decision.md`.
+8. Reply to the user with a short summary: the 3 approved multiples (selections with local time, odds, stake, reason). Always emit several multiples (see `limits.md`, MULTIPLES mode); only say "no bets today" if fewer than 4 matches have yet to start. Do not end the analysis before completing the 5 phases: collection, markets, builder, jury and president.
 
-Mantém o utilizador informado com uma linha por fase concluída (ex.: "Recolha concluída: 12 jogos").
+Keep the user informed with one line per completed phase (e.g. "Collection finished: 12 matches").
 
-## Regras
-- Ordem obrigatória: não passes à fase seguinte sem confirmar que os ficheiros da fase anterior existem (recolha: 8 ficheiros por jogo; mercados: `mercado-*.md`; construtor: `propostas.md`; júri: 4 ficheiros `juri-*.md`). O Presidente só corre depois de `propostas.md` e dos 4 votos existirem. Se `propostas.md` não existir, corre o `construtor` primeiro. Nunca emitas `decisao.md` a saltar fases.
-- Hora: antes de lançar o júri e o presidente, volta a confirmar a hora atual e descarta qualquer seleção de um jogo que entretanto já começou ou começa em menos de 20 minutos. Escreve sempre a hora de cada jogo em hora de Lisboa.
-- Os agentes só usam dados que encontrem (web, ficheiros). Nunca inventam números. Se não encontram, escrevem "sem dados".
-- Todas as probabilidades são estimativas. Nenhum agente promete lucro.
-- O utilizador coloca a aposta manualmente. Nenhum agente aposta sozinho.
-- Os limites de dinheiro estão em `limites.md` e o Presidente nunca os pode ultrapassar.
+## Rules
+- Mandatory order: do not move to the next phase without confirming that the files of the previous phase exist (collection: 8 files per match; markets: `market-*.md`; builder: `proposals.md`; jury: 4 `jury-*.md` files). The President only runs after `proposals.md` and the 4 votes exist. If `proposals.md` does not exist, run the `builder` first. Never issue `decision.md` by skipping phases.
+- Time: before launching the jury and the president, confirm the current time again and discard any selection from a match that has meanwhile started or starts in less than 20 minutes. Always write each match's time in the user's local time.
+- Agents only use data they find (web, files). They never invent numbers. If they find nothing, they write "no data".
+- All probabilities are estimates. No agent promises profit.
+- The user places the bet manually. No agent bets on its own.
+- The money limits are in `limits.md` and the President can never exceed them.
